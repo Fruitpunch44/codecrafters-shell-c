@@ -20,6 +20,9 @@ int main() {
     //break out of the loop
     if (strcmp(input, "exit 0")==0){
       exit(0);}
+    else if(strcmp(input,"echo %s")==0){
+      printf("%s\n",input);
+    }
      printf("%s: command not found\n", input);
   }
   return 0;
