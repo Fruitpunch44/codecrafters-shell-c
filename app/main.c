@@ -19,9 +19,9 @@ int main() {
     printf("%s: command not found\n", input);
 
     //break out of the loop
-    if (strcmp(input, "exit")==0){
+    if (strcmp(input, "exit 0")==0){
       printf("Goodbye cruel world!\n");
-      break;
+      exit(0);
     }
   }
   return 0;
