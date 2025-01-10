@@ -20,9 +20,7 @@ int main() {
 
     //break out of the loop
     if (strcmp(input, "exit 0")==0){
-      printf("Goodbye cruel world!\n");
       exit(0);
-    }
   }
   return 0;
 }
