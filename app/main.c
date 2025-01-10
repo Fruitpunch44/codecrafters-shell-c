@@ -19,11 +19,14 @@ int main() {
 
     //break out of the loop
     if (strcmp(input, "exit 0")==0){
-      exit(0);}
-    else if(strcmp(input,"echo %s")==0){
-      printf("%s\n",input);
+      return 0;}
+
+    else if(strcmp(input,"echo")==0){
+      printf("%s\n",input+5);
     }
-     printf("%s: command not found\n", input);
+    else{
+      printf("%s: command not found\n", input);
+    }
   }
   return 0;
 }
