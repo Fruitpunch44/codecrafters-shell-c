@@ -21,7 +21,7 @@ int main() {
     if (strcmp(input, "exit 0")==0){
       return 0;}
 
-    else if(strcmp(input,"echo")==0){
+    if(strcmp(input,"echo")==0){
       printf("%s\n",input+5);
     }
     else{
