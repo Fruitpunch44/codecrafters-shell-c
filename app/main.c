@@ -22,5 +22,6 @@ int main() {
     if (strcmp(input, "exit 0")==0){
       exit(0);
   }
+  }
   return 0;
 }
