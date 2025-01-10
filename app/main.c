@@ -16,12 +16,11 @@ int main() {
     // Remove the trailing newline
     input[strlen(input) - 1] = '\0';
     
-    printf("%s: command not found\n", input);
 
     //break out of the loop
     if (strcmp(input, "exit 0")==0){
-      exit(0);
-  }
+      exit(0);}
+     printf("%s: command not found\n", input);
   }
   return 0;
 }
