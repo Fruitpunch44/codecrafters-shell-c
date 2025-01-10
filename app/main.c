@@ -21,8 +21,8 @@ int main() {
     if (strcmp(input, "exit 0")==0){
       return 0;}
 
-    if(strcmp(input,"echo")==0){
-      printf("%s\n",input+5);
+    else if(strncmp(input,"echo",strlen("echo"))==0){
+      printf("%s\n",input+strlen("echo")+1);
     }
     else{
       printf("%s: command not found\n", input);
