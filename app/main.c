@@ -32,11 +32,12 @@ int main() {
         "exit",
         "type"};
         size_t length=sizeof(built_in)/sizeof(built_in[0]);
+        char *arguments= input+strlen("type")+1;
 
         for(size_t i=0;i<length;i++){
           //test debugging 
-          if(strcmp(built_in[i],input+strlen("type")+1)==0){
-            printf("%s is a shell builtin\n",input);
+          if(strcmp(built_in[i],arguments)==0){
+            printf("%s is a shell builtin\n",arguments);
         }
         }
     }
