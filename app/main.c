@@ -39,6 +39,9 @@ int main() {
           if(strcmp(built_in[i],arguments)==0){
             printf("%s is a shell builtin\n",arguments);
         }
+           else{
+            printf("%s: not found\n", arguments);
+          }
         }
     }
     else{
