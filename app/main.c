@@ -24,6 +24,22 @@ int main() {
     else if(strncmp(input,"echo",strlen("echo"))==0){
       printf("%s\n",input+strlen("echo")+1);
     }
+    // all this just to itterate through the length of an array
+    //fuck this language fr
+    else if(strncmp(input,"type",strlen("type"))==0){
+      char *built_in[]={
+        "echo",
+        "exit",
+        "type"};
+        size_t length=sizeof(built_in)/sizeof(built_in[0]);
+
+        for(size_t i=0;i<length;i++){
+          //test debugging 
+          if(strcmp(built_in[i],input+strlen("type")+1)==0){
+            printf("%s is a shell builtin\n",input);
+        }
+        }
+    }
     else{
       printf("%s: command not found\n", input);
     }
