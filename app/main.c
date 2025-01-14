@@ -34,15 +34,18 @@ int main() {
         char *arguments= input+strlen("type")+1;
 
         int found_built_in=0;
+
         for(size_t i=0;i<length;i++){
-          //test debugging 
           if(strcmp(built_in[i],arguments)==0){
             printf("%s is a shell builtin\n",arguments);
-            found_built_in=1;}
+            found_built_in=1;
+            break;
+            }
+        }
         if(found_built_in == 0){
           printf("%s: not found\n",arguments);
         }
-        }
+        
     }
     else{
       printf("%s: command not found\n", input);
