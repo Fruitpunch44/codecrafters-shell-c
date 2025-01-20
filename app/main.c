@@ -73,7 +73,7 @@ char *find_in_path(char *arguments){
     }
     free(path_buffer);
     free(full_path);
-    return NULL
+    return NULL;
 }
 void handle_input(char *input){
 
