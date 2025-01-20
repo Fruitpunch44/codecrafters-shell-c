@@ -105,6 +105,7 @@ void handle_input(char *input){
 
   else if(strncmp(input,"type ",strlen("type "))==0){
     char *arguments= input+strlen("type ");
+    check_for_built_in(arguments);
     char* path=find_in_path(arguments);
     if(path){
       printf("%s is %s\n",arguments,path);
