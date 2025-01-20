@@ -77,26 +77,10 @@ char *find_in_path(char *arguments){
     free(full_path);
     return NULL;
 }
-void handle_input(char *input){
 
-  if(strcmp(input,"exit 0")==0){
-    printf("exiting shell\n");
-    exit(0);
-    }
-  else if(strncmp(input,"echo ",strlen("echo "))==0){
-    printf("%s\n",input+strlen("echo "));}
-
-  else if(strncmp(input,"type ",strlen("type "))==0){
-    size_t length=sizeof(built_ins)/sizeof(built_ins[0]);
-    char *arguments= input+strlen("type ");
-    char* path=find_in_path(arguments);
-    if(path){
-      printf("%s is %s\n",arguments,path);
-    }
-    else{
-      printf("%s is not found\n",arguments);
-    }
-    int built_in_found=0;
+void check_for_built_in(char *arguments){
+  size_t length=sizeof(built_ins)/sizeof(built_ins[0]);
+  int built_in_found=0;
 
     for(size_t i=0;i<length;i++){
       if(strcmp(built_ins[i],arguments)==0){
@@ -107,6 +91,23 @@ void handle_input(char *input){
     }
     if(built_in_found != 1){
       printf("%s: is not a built in\n",arguments);
+    }
+
+}
+void handle_input(char *input){
+
+  if(strcmp(input,"exit 0")==0){
+    printf("exiting shell\n");
+    exit(0);
+    }
+  else if(strncmp(input,"echo ",strlen("echo "))==0){
+    printf("%s\n",input+strlen("echo "));}
+
+  else if(strncmp(input,"type ",strlen("type "))==0){
+    char *arguments= input+strlen("type ");
+    char* path=find_in_path(arguments);
+    if(path){
+      printf("%s is %s\n",arguments,path);
     }
   }
   else{
