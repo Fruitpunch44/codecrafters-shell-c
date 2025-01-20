@@ -109,6 +109,9 @@ void handle_input(char *input){
     if(path){
       printf("%s is %s\n",arguments,path);
     }
+    else{
+      printf("%s command: not found");
+    }
   }
   else{
     printf("%s: is an invalid command\n try again\n",input);
