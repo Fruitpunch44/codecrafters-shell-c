@@ -45,12 +45,7 @@ const char *built_ins[]={
       "type"
     };
 int check_executable(const char *path){
-  int check=access(path,X_OK);
-  if(check ==0){
-    printf("It's Executable");
-    return 0;
-    }
-  return 1;  
+   return access(path, X_OK) == 0;
 }
 
 char *find_in_part(char *arguments){
