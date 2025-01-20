@@ -43,7 +43,8 @@ void main_loop();//implement later
 const char *built_ins[]={
       "echo",
       "exit",
-      "type"
+      "type",
+      "cat"
     };
 int check_executable(const char *path){
    return access(path, X_OK) == 0;
