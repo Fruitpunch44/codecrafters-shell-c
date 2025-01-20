@@ -110,7 +110,7 @@ void handle_input(char *input){
       printf("%s is %s\n",arguments,path);
     }
     else{
-      printf("%s command: not found\n",arguments);
+      printf("%s: not found\n",arguments);
     }
   }
   else{
