@@ -1,10 +1,42 @@
 #include <stdio.h>
 #include <string.h>
 #include<stdlib.h>
+#include <fcntl.h>
+#include<unistd.h>
 
 #define GENERAL_BUFF_SIZE 1024
+#define TOKEN_DELIM " \t\r\n\a"
 
-void split_line(char *string);
+char **split_line(char *string){
+  int buffer=GENERAL_BUFF_SIZE;
+  char *TOKEN;
+  int position=0;
+  char **tokens=malloc(buffer*sizeof(char));
+  if(tokens==NULL){
+    perror("error allocating memory for the buffer");
+  }
+  TOKEN=strtok(string,TOKEN_DELIM);
+  while (TOKEN != NULL)
+  {
+    tokens[position]=TOKEN;
+    position++;
+  
+  //not actually possible 
+  if(position >= buffer){
+    buffer +=GENERAL_BUFF_SIZE;
+    tokens=realloc(tokens,buffer*sizeof(char));
+    if(tokens==NULL){
+      perror("Error reallocating memmory");
+    }
+  }
+  TOKEN=strtok(NULL,TOKEN_DELIM);
+  }
+ 
+  tokens[position]=NULL;
+  return tokens;
+  
+}
+
 void main_loop();
 
 const char *built_ins[]={
@@ -12,17 +44,42 @@ const char *built_ins[]={
       "exit",
       "type"
     };
+int check_executable(const char *path){
+  int check=access(path,X_OK);
+  if(check ==0){
+    printf("It's Executable");
+    return 0;
+    }
+  return 1;  
+}
 
-char *get_env(char *path_loc){
+char *find_in_part(char *arguments){
   char *path=getenv("PATH");
   if(path==NULL){
     perror("error not found");
     return NULL;
   }
-    strncpy(path_loc,path,GENERAL_BUFF_SIZE-1);
-    return path_loc;
+  char *path_buffer=malloc(sizeof(char)*strlen(path)+1);
+    strncpy(path_buffer,path,GENERAL_BUFF_SIZE-1);
+    char *full_path=malloc(sizeof(char)*GENERAL_BUFF_SIZE);
+    if(full_path==NULL){
+      perror("error in allocation");
+      free(path_buffer);
+      exit(1);
+    }
+    char *DIR = strtok(path_buffer,":");
+    while( DIR != NULL){
+      snprintf(full_path,GENERAL_BUFF_SIZE,"%s/%s",DIR,arguments);
+      if(check_executable(full_path)){
+        free(path_buffer);
+        return full_path;
+      }
+        DIR=strtok(NULL,":");
+    }
+    free(path_buffer);
+    free(full_path);
+    return NULL;
 }
-
 void handle_input(char *input){
 
   if(strcmp(input,"exit 0")==0){
@@ -34,6 +91,13 @@ void handle_input(char *input){
   else if(strncmp(input,"type ",strlen("type "))==0){
     size_t length=sizeof(built_ins)/sizeof(built_ins[0]);
     char *arguments= input+strlen("type ");
+    char* path=find_in_part(arguments);
+    if(path){
+      printf("%s is %s\n",arguments,path);
+    }
+    else{
+      printf("%s is not found\n",arguments);
+    }
     int built_in_found=0;
 
     for(size_t i=0;i<length;i++){
@@ -48,7 +112,7 @@ void handle_input(char *input){
     }
   }
   else{
-    printf("invalid command try again\n");
+    printf("%s: is an invalid command\n try again\n",input);
   }
 }
 
