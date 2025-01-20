@@ -48,7 +48,7 @@ int check_executable(const char *path){
    return access(path, X_OK) == 0;
 }
 
-char *find_in_part(char *arguments){
+char *find_in_path(char *arguments){
   char *path=getenv("PATH");
   if(path==NULL){
     perror("error not found");
@@ -73,7 +73,7 @@ char *find_in_part(char *arguments){
     }
     free(path_buffer);
     free(full_path);
-    return NULL;
+    return NULL
 }
 void handle_input(char *input){
 
@@ -86,7 +86,7 @@ void handle_input(char *input){
   else if(strncmp(input,"type ",strlen("type "))==0){
     size_t length=sizeof(built_ins)/sizeof(built_ins[0]);
     char *arguments= input+strlen("type ");
-    char* path=find_in_part(arguments);
+    char* path=find_in_path(arguments);
     if(path){
       printf("%s is %s\n",arguments,path);
     }
