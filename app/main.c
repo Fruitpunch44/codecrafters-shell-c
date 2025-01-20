@@ -7,6 +7,7 @@
 #define GENERAL_BUFF_SIZE 1024
 #define TOKEN_DELIM " \t\r\n\a"
 
+//implement later 
 char **split_line(char *string){
   int buffer=GENERAL_BUFF_SIZE;
   char *TOKEN;
@@ -37,7 +38,7 @@ char **split_line(char *string){
   
 }
 
-void main_loop();
+void main_loop();//implement later
 
 const char *built_ins[]={
       "echo",
@@ -55,7 +56,7 @@ char *find_in_path(char *arguments){
     return NULL;
   }
   char *path_buffer=malloc(sizeof(char)*strlen(path)+1);
-    strncpy(path_buffer,path,GENERAL_BUFF_SIZE-1);
+    strncpy(path_buffer,path,strlen(path)+1);
     char *full_path=malloc(sizeof(char)*GENERAL_BUFF_SIZE);
     if(full_path==NULL){
       perror("error in allocation");
@@ -79,7 +80,8 @@ void handle_input(char *input){
 
   if(strcmp(input,"exit 0")==0){
     printf("exiting shell\n");
-    exit(0);}
+    exit(0);
+    }
   else if(strncmp(input,"echo ",strlen("echo "))==0){
     printf("%s\n",input+strlen("echo "));}
 
