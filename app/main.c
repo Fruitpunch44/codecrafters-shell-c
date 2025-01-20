@@ -88,7 +88,7 @@ void handle_input(char *input){
     char *arguments= input+strlen("type ");
     char* path=find_in_part(arguments);
     if(path){
-      printf("%s is in %s\n",arguments,path);
+      printf("%s is %s\n",arguments,path);
     }
     else{
       printf("%s is not found\n",arguments);
