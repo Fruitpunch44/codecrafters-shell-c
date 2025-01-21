@@ -112,10 +112,9 @@ void handle_input(char *input){
     else{
       printf("%s: not found in %s\n",arguments,path);
     }
-    check_for_built_in(arguments);
   }
   else{
-    printf("%s: is an invalid command\n try again\n",input);
+    printf("%s: is an invalid commandtry again\n",input);
   }
 }
 
