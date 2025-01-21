@@ -82,7 +82,7 @@ int check_for_built_in(char *arguments){
 
     for(size_t i=0;i<length;i++){
       if(strcmp(built_ins[i],arguments)==0){
-        printf("%s is a builtin\n", arguments);
+        printf("%s is a shell builtin\n", arguments);
         return 1;
       }
     }
