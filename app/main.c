@@ -92,7 +92,6 @@ int check_for_built_in(char *arguments){
 void handle_input(char *input){
 
   if(strcmp(input,"exit 0")==0){
-    printf("exiting shell\n");
     exit(0);
     }
   else if(strncmp(input,"echo ",strlen("echo "))==0){
