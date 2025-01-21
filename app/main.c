@@ -44,7 +44,6 @@ const char *built_ins[]={
       "echo",
       "exit",
       "type",
-      "cat"
     };
 int check_executable(const char *path){
    return access(path, X_OK) == 0;
@@ -78,20 +77,16 @@ char *find_in_path(char *arguments){
     return NULL;
 }
 
-void check_for_built_in(char *arguments){
+int check_for_built_in(char *arguments){
   size_t length=sizeof(built_ins)/sizeof(built_ins[0]);
-  int built_in_found=0;
 
     for(size_t i=0;i<length;i++){
       if(strcmp(built_ins[i],arguments)==0){
         printf("%s is a builtin\n", arguments);
-        built_in_found=1;
-        break;
+        return 1;
       }
     }
-    if(built_in_found != 1){
-      printf("%s: is not a built in\n",arguments);
-    }
+    return 0;
 
 }
 void handle_input(char *input){
@@ -104,7 +99,11 @@ void handle_input(char *input){
     printf("%s\n",input+strlen("echo "));}
 
   else if(strncmp(input,"type ",strlen("type "))==0){
+
     char *arguments= input+strlen("type ");
+    if(check_for_built_in(arguments)){
+      return;
+    }
     char* path=find_in_path(arguments);
     if(path){
       printf("%s is %s\n",arguments,path);
@@ -114,7 +113,7 @@ void handle_input(char *input){
     }
   }
   else{
-    printf("%s: is an invalid commandtry again\n",input);
+    printf("%s: command not found\n",input);
   }
 }
 
