@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include <fcntl.h>
 #include<unistd.h>
+#include<sys/types.h>
 
 #define GENERAL_BUFF_SIZE 1024
 #define TOKEN_DELIM " \t\r\n\a"
@@ -55,6 +56,7 @@ char *find_in_path(char *arguments){
     perror("error not found");
     return NULL;
   }
+
   char *path_buffer=malloc(sizeof(char)*strlen(path)+1);
     strncpy(path_buffer,path,strlen(path)+1);
     char *full_path=malloc(sizeof(char)*GENERAL_BUFF_SIZE);
@@ -63,6 +65,7 @@ char *find_in_path(char *arguments){
       free(path_buffer);
       exit(1);
     }
+
     char *DIR = strtok(path_buffer,":");
     while( DIR != NULL){
       snprintf(full_path,GENERAL_BUFF_SIZE,"%s/%s",DIR,arguments);
@@ -72,6 +75,7 @@ char *find_in_path(char *arguments){
       }
         DIR=strtok(NULL,":");
     }
+    
     free(path_buffer);
     free(full_path);
     return NULL;
@@ -89,7 +93,20 @@ int check_for_built_in(char *arguments){
     return 0;
 
 }
+
+void execute_program(char *path,char **arguments){
+  pid_t pid;//one for the fork process and another to return the process id
+  pid=fork();
+  if(pid==0){
+    execv(path,arguments);
+    //execv doesn't return anything
+    perror("no such directory");
+    exit(1);
+  }
+
+}
 void handle_input(char *input){
+  char *arguments=input;
 
   if(strcmp(input,"exit 0")==0){
     exit(0);
@@ -110,6 +127,11 @@ void handle_input(char *input){
     else{
       printf("%s: not found\n",arguments);
     }
+  }
+  else if(check_for_built_in(arguments)==0){
+    char **args=split_line(input);
+    char *path=find_in_path(arguments);
+    execute_program(path,args);
   }
   else{
     printf("%s: command not found\n",input);
