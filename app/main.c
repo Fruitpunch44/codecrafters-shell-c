@@ -95,10 +95,12 @@ int check_for_built_in(char *arguments){
 }
 
 void execute_program(char *path,char **arguments){
-  pid_t pid;//one for the fork process and another to return the process id
+  pid_t pid,pid2;//one for the fork process and another to return the process id
   pid=fork();
+  pid2=getpid();
   if(pid==0){
     execv(path,arguments);
+    printf("program was passed the follwing args: with the pid %s ",pid2);
     //execv doesn't return anything
     perror("no such directory");
     exit(1);
