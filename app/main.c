@@ -100,7 +100,11 @@ void execute_program(char *path,char **arguments){
   pid2=getpid();
   if(pid==0){
     execv(path,arguments);
-    printf("program was passed the follwing args: with the pid %s ",pid2);
+    for(int i=0;arguments[i]!=NULL;i++){
+      printf("the program was passed %s args \n");
+      printf("Arg #0: %s");
+      printf("Arg #1: %s");
+      printf("program signature: %d",pid2);}
     //execv doesn't return anything
     perror("no such directory");
     exit(1);
@@ -132,6 +136,10 @@ void handle_input(char *input){
   }
   else if(check_for_built_in(arguments)==0){
     char **args=split_line(input);
+    printf("commands \n");
+    for (int i = 0; args[i] != NULL; i++) {
+      printf("%s\n", args[i]);}
+
     char *path=find_in_path(arguments);
     execute_program(path,args);
   }
