@@ -135,9 +135,9 @@ void handle_input(char *input){
   }
   else if(check_for_built_in(arguments)==0){
     char **args=split_line(input);
-    printf("commands \n");
+    /*printf("commands \n");
     for (int i = 0; args[i] != NULL; i++) {
-      printf("%s\n", args[i]);}
+      printf("%s\n", args[i]);}*/
 
     char *path=find_in_path(arguments);
     execute_program(path,args);
