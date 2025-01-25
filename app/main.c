@@ -152,7 +152,7 @@ int main() {
     printf("$ ");
     char input[GENERAL_BUFF_SIZE];
     fgets(input, GENERAL_BUFF_SIZE, stdin);
-    input[strlen(input) - 1] = '\0';
+    input[strcspn(input,"\n")]=='\0';
     handle_input(input);
 
 }
