@@ -100,10 +100,6 @@ void execute_program(char *path,char **arguments){
   pid2=getpid();
   if(pid==0){
     execv(path,arguments);
-    for(int i=0;arguments[i]!=NULL;i++){
-      printf("Arg #0: %s",arguments[0]);
-      printf("Arg #1: %s",arguments[1]);
-      printf("program signature: %d",pid2);}
     //execv doesn't return anything
     perror("no such directory");
     exit(1);
